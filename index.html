@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat WebSocket</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <form id="form">
+            <input type="text" id="msg" autofocus autocomplete="off" placeholder="Digite uma mensagem a enviar">
+            <button type="submit">Enviar</button>
+        </form>
+    </header>
+
+    <ul id="mensagens"></ul>
+
+    <div id="status"></div>
+
+    <script>
+        $(function(){
+            const socket = io()
+            
+            $('#form').submit(function(evt){
+                socket.emit('chat-msg', $('#msg').val())
+                $('#msg').val('')
+                return false
+            })
+            socket.on('chat msg', function (msg){
+                $('#mensagens').append($('<li>').text())
+            })
+        })
+    </script>
+</body>
+</html>
